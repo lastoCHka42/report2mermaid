@@ -1,0 +1,9 @@
+# Input and output files
+input_file.txt
+result.txt
+
+# Byte-compiled
+helpers/__pycache__/
+
+# Environment
+venv/
