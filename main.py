@@ -25,7 +25,6 @@ debug_mode = args.debug
 
 if __name__ == "__main__":
 
-
     nodes = dict()
     with open(args.input_file, 'r') as f:
         source = f.readlines()
@@ -33,9 +32,9 @@ if __name__ == "__main__":
     INDEX_TO_LEVEL = generate_index_to_level_dict(source)
 
     for i in range(len(INDEX_TO_LEVEL)):
-        name, content_raw = source[i].strip().split(':', 1)
+        name, content_raw = source[i].strip().split(' ', 1)
         content = (i, INDEX_TO_LEVEL[i])
-        node = Node(i, name, content_raw)
+        node = Node(i, name[0:-1], content_raw)
         nodes.update({i: node})
         if i == 0:
             continue
