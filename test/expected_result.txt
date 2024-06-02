@@ -1,0 +1,36 @@
+graph BT
+
+0[<b>AggregateExec</b>
+output_rows=1\n elapsed_compute=62.156µs]
+1[<b>CoalescePartitionsExec</b>
+output_rows=32\n elapsed_compute=19.354µs] --> 0
+2[<b>AggregateExec</b>
+output_rows=32\n elapsed_compute=113.653569ms] --> 1
+3[<b>CoalesceBatchesExec</b>
+output_rows=187196398\n elapsed_compute=482.933862ms] --> 2
+4[<b>HashJoinExec</b>
+output_rows=198721536\n build_input_batches=1920\n input_rows=198721536\n build_input_rows=15859712\n output_batches=23052\n input_batches=23052\n build_mem_used=1173984896\n join_time=36.266803751s\n build_time=4.184348613s] --> 3
+5[<b>CoalesceBatchesExec</b>
+output_rows=15859712\n elapsed_compute=1.082561712s] --> 4
+6[<b>RepartitionExec</b>
+send_time=123.438628ms\n fetch_time=9.26051195s\n repart_time=1.572265631s] --> 5
+7[<b>RepartitionExec</b>
+send_time=5.608244ms\n fetch_time=284.964032ms\n repart_time=2ns] --> 6
+8[<b>UnionExec</b>
+output_rows=15859712\n elapsed_compute=351.921µs] --> 7
+9[<b>TarantoolExec</b>
+output_rows=15859712\n elapsed_compute=283.928035ms\n record_batch_counter=1937] --> 8
+10[<b>BufExec</b>
+output_rows=0\n elapsed_compute=8.297µs\n record_batch_counter=4] --> 8
+11[<b>CoalesceBatchesExec</b>
+output_rows=198721536\n elapsed_compute=7.240131254s] --> 4
+12[<b>RepartitionExec</b>
+send_time=14.784234258s\n fetch_time=106.670322046s\n repart_time=30.550571712s] --> 11
+13[<b>RepartitionExec</b>
+send_time=485.453956ms\n fetch_time=3.12187389s\n repart_time=2ns] --> 12
+14[<b>UnionExec</b>
+output_rows=198721536\n elapsed_compute=820.357µs] --> 13
+15[<b>TarantoolExec</b>
+output_rows=198721536\n elapsed_compute=3.114981935s\n record_batch_counter=24259] --> 14
+16[<b>BufExec</b>
+output_rows=0\n elapsed_compute=8.386µs\n record_batch_counter=4] --> 14
